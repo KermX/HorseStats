@@ -145,7 +145,7 @@ public final class HorseStats extends JavaPlugin implements Listener {
             }
 
             String breedableTimer;
-            if (horse instanceof ZombieHorse || horse instanceof SkeletonHorse){
+            if (horse instanceof ZombieHorse || horse instanceof SkeletonHorse || horse instanceof Mule){
                 breedableTimer = messagesNotApplicable;
             } else if (horse.getAge() > 0) {
                 breedableTimer = messagesBreedableAgainIn + horse.getAge() / 20 + messagesSeconds;
