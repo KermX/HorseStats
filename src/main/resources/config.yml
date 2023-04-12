@@ -1,0 +1,6 @@
+##Config file for the horse stats plugin!
+HorseStats:
+  ##How long in seconds should players have to wait between checking stats
+  cooldown: 3
+  ##What item should be used to check horse stats
+  statsItem: BOOK

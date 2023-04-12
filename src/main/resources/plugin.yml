@@ -2,3 +2,9 @@ name: HorseStats
 version: '${project.version}'
 main: me.kermx.horsestats.HorseStats
 api-version: 1.17
+author: KermX
+commands:
+  horsestats:
+    description: Reload the configuration file for HorseStats
+    usage: /horsestats reload
+    permission: horsestats.reload
