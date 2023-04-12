@@ -4,3 +4,28 @@ HorseStats:
   cooldown: 3
   ##What item should be used to check horse stats
   statsItem: BOOK
+
+Messages:
+  TopMessage: "----------Horse Stats----------"
+  Name: "Name: "
+  Owner: " Owner: "
+  Color: "Color: "
+  Pattern: " Pattern: "
+  Health: "Health: "
+  Speed: "Speed: "
+  MaxJumpHeight: "Max Jump Height: "
+  Breedable: "Breedable: "
+  TimeUntilAdult: "Time Until Adult: "
+  BottomMessage: "-------------------------------"
+  ##other words
+  NoOwner: "not tamed"
+  NoName: "no name"
+  Adult: "adult"
+  BreedAgainIn: "breed again in "
+  Seconds: " secs"
+  CanBreed: "can breed"
+  TooYoungToBreed: "too young"
+  NotApplicable: "N/A"
+  ##cooldown message
+  CooldownPart1: "You must wait "
+  CooldownPart2: " seconds before checking horse stats again!"
