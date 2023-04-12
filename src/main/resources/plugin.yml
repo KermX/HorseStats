@@ -1,0 +1,4 @@
+name: HorseStats
+version: '${project.version}'
+main: me.kermx.horsestats.HorseStats
+api-version: 1.17
