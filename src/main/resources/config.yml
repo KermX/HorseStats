@@ -4,9 +4,12 @@ HorseStats:
   cooldown: 3
   ##What item should be used to check horse stats
   statsItem: BOOK
+  ##Should the plugin calculate an overall score for all horses?
+  enableHorseRating: true
 
 Messages:
   TopMessage: "----------Horse Stats----------"
+  HorseRating: "Overall Horse Rating: "
   Name: "Name: "
   Owner: " Owner: "
   Color: "Color: "

@@ -44,6 +44,9 @@ public final class HorseStats extends JavaPlugin implements Listener {
     private String messagesCooldownPart1;
     private String messagesCooldownPart2;
 
+    private String messagesHorseRating;
+    private boolean horseRatingEnabled;
+
     @Override
     public void onEnable() {
         // load config
@@ -51,6 +54,7 @@ public final class HorseStats extends JavaPlugin implements Listener {
         reloadConfig();
         cooldownConfig = getConfig().getInt("HorseStats.cooldown");
         statsItem = getConfig().getString("HorseStats.statsItem");
+        horseRatingEnabled = getConfig().getBoolean("HorseStats.enableHorseRating");
         messagesTopMessage = getConfig().getString("Messages.TopMessage");
         messagesName = getConfig().getString("Messages.Name");
         messagesOwner = getConfig().getString("Messages.Owner");
@@ -72,6 +76,7 @@ public final class HorseStats extends JavaPlugin implements Listener {
         messagesNotApplicable = getConfig().getString("Messages.NotApplicable");
         messagesCooldownPart1 = getConfig().getString("Messages.CooldownPart1");
         messagesCooldownPart2 = getConfig().getString("Messages.CooldownPart2");
+        messagesHorseRating = getConfig().getString("Messages.HorseRating");
         // load command
         Objects.requireNonNull(getCommand("horsestats")).setExecutor(new ReloadCommand(this));
         // load event
@@ -117,10 +122,12 @@ public final class HorseStats extends JavaPlugin implements Listener {
             double roundedHorseCurrentHealth = Math.round(horseCurrentHealth * 10) / 10.0;
             String style = messagesNotApplicable;
             String color = messagesNotApplicable;
+            String horseRating = messagesNotApplicable;
             if (entity instanceof Horse) {
                 Horse realhorse = (Horse) entity;
                 color = realhorse.getColor().name().toLowerCase().replace("_", " ");
                 style = realhorse.getStyle().name().toLowerCase().replace("_", " ");
+                horseRating = Math.round((((horseMaxHealth - 22.5) / (60 - 22.5) * 25) + ((maxJumpHeight - 2.89) / (5 - 2.89) * 37.5) + ((horseSpeed - 9) / (14.23 - 9) * 37.5) * (100 / 150) + 50) * 100) / 100.0 + "/100";
             }
 
             String horseOwner;
@@ -155,17 +162,21 @@ public final class HorseStats extends JavaPlugin implements Listener {
                 breedableTimer = messagesTooYoungToBreed;
             }
 
-            String horseInfo = ChatColor.DARK_AQUA + messagesTopMessage +
-                    ChatColor.DARK_GREEN + "\n" + messagesName + ChatColor.GREEN + horseName + ChatColor.DARK_GREEN + messagesOwner + ChatColor.GREEN + horseOwner +
+            String horseInfo =
+                    ChatColor.DARK_GREEN + messagesName + ChatColor.GREEN + horseName + ChatColor.DARK_GREEN + messagesOwner + ChatColor.GREEN + horseOwner +
                     ChatColor.DARK_GREEN + "\n" + messagesColor + ChatColor.GREEN + color + ChatColor.DARK_GREEN + messagesPattern + ChatColor.GREEN + style +
                     ChatColor.DARK_GREEN + "\n" + messagesHealth + ChatColor.GREEN + roundedHorseCurrentHealth + "/" + roundedHorseMaxHealth +
                     ChatColor.DARK_GREEN + "\n" + messagesSpeed + ChatColor.GREEN + roundedHorseSpeed +
                     ChatColor.DARK_GREEN + "\n" + messagesMaxJumpHeight + ChatColor.GREEN + roundedMaxJumpHeight +
                     ChatColor.DARK_GREEN + "\n" + messagesBreedable + ChatColor.GREEN + breedableTimer +
-                    ChatColor.DARK_GREEN + "\n" + messagesTimeUntilAdult + ChatColor.GREEN + horseAge +
-                    ChatColor.DARK_AQUA + "\n" + messagesBottomMessage;
+                    ChatColor.DARK_GREEN + "\n" + messagesTimeUntilAdult + ChatColor.GREEN + horseAge;
 
+            player.sendMessage(ChatColor.DARK_AQUA + messagesTopMessage);
+            if (horseRatingEnabled){
+                player.sendMessage(ChatColor.DARK_GREEN + messagesHorseRating + ChatColor.GREEN + horseRating);
+            }
             player.sendMessage(horseInfo);
+            player.sendMessage(ChatColor.DARK_AQUA + messagesBottomMessage);
             event.setCancelled(true);
             cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
         }
@@ -196,6 +207,8 @@ public final class HorseStats extends JavaPlugin implements Listener {
         messagesNotApplicable = getConfig().getString("Messages.NotApplicable");
         messagesCooldownPart1 = getConfig().getString("Messages.CooldownPart1");
         messagesCooldownPart2 = getConfig().getString("Messages.CooldownPart2");
+        messagesHorseRating = getConfig().getString("Messages.HorseRating");
+        horseRatingEnabled = getConfig().getBoolean("HorseStats.enableHorseRating");
     }
 
     @Override
